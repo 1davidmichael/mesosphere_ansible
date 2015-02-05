@@ -1,0 +1,9 @@
+[masters]
+mesosphere-master-0
+mesosphere-master-1
+mesosphere-master-2
+
+[slaves]
+mesosphere-slave-0 
+mesosphere-slave-1 
+mesosphere-slave-2 
