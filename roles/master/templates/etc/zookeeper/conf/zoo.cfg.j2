@@ -1,0 +1,3 @@
+{% for host in groups['masters'] %}
+	server.{{ loop.index }}.{{ hostvars[host][ansible_product_version] }}:2888:3888
+{% endfor %}

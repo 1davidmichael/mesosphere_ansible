@@ -1,0 +1,12 @@
+---
+- hosts: slaves
+  sudo: true
+  remote_user: vagrant
+  roles:
+    - slave
+
+- hosts: masters
+  sudo: true
+  remote_user: vagrant
+  roles:
+    - master

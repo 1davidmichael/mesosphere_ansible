@@ -1,0 +1,23 @@
+- name: Install Mesosphere yum repo
+  yum:
+    name=http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm
+    state=present
+
+- name: Install mesos package
+  yum: 
+    name={{ item }}
+    state=present
+  with_items:
+    - mesos
+    - marathon
+    - mesosphere-zookeeper
+
+- name: zookeeper ID
+  template:
+    src=var/lib/zookeeper/myid.j2
+    dest=/var/lib/zookeeper/myid
+
+- name: zookeeper config
+  template:
+    src=etc/zookeeper/conf/zoo.cfg.j2
+    dest=/etc/zookeeper/conf/zoo.cfg
