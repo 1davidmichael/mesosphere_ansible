@@ -21,3 +21,42 @@
   template:
     src=etc/zookeeper/conf/zoo.cfg.j2
     dest=/etc/zookeeper/conf/zoo.cfg
+
+- name: start zookeeper service
+  service:
+    name=zookeeper
+    state=started
+    enabled=yes
+
+- name: configure zk url
+  template:
+    src=etc/mesos/zk.j2
+    dest=/etc/mesos/zk
+
+- name: set hostname
+  copy:
+    src=etc/mesos-master/hostname
+    dest=/etc/mesos-master/hostname
+
+- name: set quorum
+  copy:
+    src=etc/mesos-master/quorum
+    dest=/etc/mesos-master/quorum
+
+- name: stop and disable mesos slave
+  service:
+    name=mesos-slave
+    state=stopped
+    enabled=no
+
+- name: start mesos-master service
+  service:
+    name=mesos-master
+    state=started
+    enabled=yes
+
+- name: start marathon service
+  service:
+    name=marathon
+    state=started
+    enabled=yes

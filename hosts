@@ -1,7 +1,7 @@
 [masters]
-mesosphere-master-0
-mesosphere-master-1
-mesosphere-master-2
+mesosphere-master-0 zookeeper_id=1
+mesosphere-master-1 zookeeper_id=2
+mesosphere-master-2 zookeeper_id=3
 
 [slaves]
 mesosphere-slave-0 

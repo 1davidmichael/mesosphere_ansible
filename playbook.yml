@@ -1,4 +1,10 @@
 ---
+- hosts: all
+  sudo: true
+  remote_user: vagrant
+  roles:
+    - common
+
 - hosts: slaves
   sudo: true
   remote_user: vagrant
