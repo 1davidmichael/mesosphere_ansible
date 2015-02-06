@@ -8,3 +8,13 @@
   selinux:
     state=disabled
 
+- name: set default interface for mesos
+  template:
+    src=etc/default/mesos.j2
+    dest=/etc/default/mesos
+
+- name: adding hosts file to make life easier
+  copy:
+    src=/etc/hosts
+    dest=/etc/hosts
+

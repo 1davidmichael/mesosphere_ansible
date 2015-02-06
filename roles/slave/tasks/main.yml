@@ -8,3 +8,50 @@
     name=mesos
     state=present
 
+- name: configure zk url
+  template:
+    src=etc/mesos/zk.j2
+    dest=/etc/mesos/zk
+
+- name: set hostname for mesos
+  copy:
+    src=etc/mesos-master/hostname
+    dest=/etc/mesos-master/hostname
+
+- name: set hostname for marathon
+  copy:
+    src=etc/mesos-master/hostname
+    dest=/etc/mesos-master/hostname
+
+- name: stop mesos master
+  service:
+    name=mesos-master
+    state=stopped
+    enabled=no
+
+- name: start mesos slave
+  service:
+    name=mesos-slave
+    state=started
+    enabled=yes
+
+- name: install docker
+  yum:
+    name=docker
+    state=present
+
+- name: start docker service
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
+- name: add docker configs
+  copy:
+    src=etc/mesos-slave/{{ item }}
+    dest=/etc/mesos-slave/{{ item }}
+  with_items:
+    - containerizers
+    - executor_registration_timeout
+  notify:
+    - restart mesos-slave
