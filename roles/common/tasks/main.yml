@@ -8,6 +8,9 @@
   selinux:
     state=disabled
 
+- name: disable selinux now
+  command: setenforce 0
+
 - name: set default interface for mesos
   template:
     src=etc/default/mesos.j2
@@ -18,3 +21,32 @@
     src=/etc/hosts
     dest=/etc/hosts
 
+- name: install haproxy
+  yum:
+    name=haproxy
+    state=present
+
+- name: manage haproxy service
+  service:
+    name=haproxy
+    state=started
+    enabled=yes
+
+- name: install haproxy-marathon-bridge
+  get_url:
+    url=https://raw.githubusercontent.com/mesosphere/marathon/master/bin/haproxy-marathon-bridge
+    dest=/usr/local/bin/haproxy-marathon-bridge
+    mode=755
+
+- name: make /etc/haproxy-marathon-bridge dir
+  file:
+    dest=/etc/haproxy-marathon-bridge
+    state=directory
+
+- name: haproxy-marathon-bridge config file
+  copy:
+    src=etc/haproxy-marathon-bridge/marathons
+    dest=/etc/haproxy-marathon-bridge/marathons
+
+- name: install haproxy-marathon-bridge
+  command: /usr/local/bin/haproxy-marathon-bridge install_cronjob

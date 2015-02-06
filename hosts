@@ -7,3 +7,6 @@ mesosphere-master-2 zookeeper_id=3
 mesosphere-slave-0 
 mesosphere-slave-1 
 mesosphere-slave-2 
+mesosphere-slave-3 
+mesosphere-slave-4 
+mesosphere-slave-5

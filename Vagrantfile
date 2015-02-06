@@ -18,6 +18,8 @@ Vagrant.configure(2) do |config|
 			mesosphere_master.vm.network "private_network", ip: "192.168.1.1#{index}", vitualbox__intnet: true
 			mesosphere_master.vm.hostname="mesosphere-master-#{index}"
 		end
+	end
+	(0..5).each do |index|
 		config.vm.define "mesosphere_slave-#{index}" do |mesosphere_slave|
 			mesosphere_slave.vm.network "private_network", ip: "192.168.1.2#{index}", vitualbox__intnet: true
 			mesosphere_slave.vm.hostname="mesosphere-slave-#{index}"
